@@ -3,13 +3,13 @@ from typing import Any, Dict, List, Text
 
 import sentencepiece as spm
 
-from rasa.nlu.tokenizers.tokenizer import Token, Tokenizer
+from rasa.nlu.tokenizers.tokenizer import Token
 from rasa.nlu.tokenizers.whitespace_tokenizer import WhitespaceTokenizer
 from rasa.nlu.training_data import Message
 import rasa.utils.train_utils as train_utils
 
 
-class SentencePieceTokenizer(Tokenizer):
+class SentencePieceTokenizer(WhitespaceTokenizer):
 
     defaults = {
         # Flag to check whether to split intents
@@ -24,7 +24,7 @@ class SentencePieceTokenizer(Tokenizer):
         """Construct a new tokenizer using the SentencePiece framework."""
 
         super().__init__(component_config)
-        
+
         model_file = self.component_config["model_file"]
         if model_file:
             if not os.path.exists(model_file):
