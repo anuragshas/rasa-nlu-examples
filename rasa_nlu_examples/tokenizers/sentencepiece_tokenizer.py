@@ -54,7 +54,7 @@ class SentencePieceTokenizer(WhitespaceTokenizer):
         tokens_out = []
 
         for token in tokens_in:
-            token_start, token_end, token_text = token.start, token.end, token.te
+            token_start, token_end, token_text = token.start, token.end, token.text
             # use ConveRT model to tokenize the text
             split_token_strings = self._tokenize(token_text)
 
