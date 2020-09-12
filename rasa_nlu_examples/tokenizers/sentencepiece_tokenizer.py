@@ -67,9 +67,9 @@ class SentencePieceTokenizer(WhitespaceTokenizer):
 
         return tokens_out
 
-@staticmethod
-def _clean_tokens(tokens: List[bytes]) -> List[Text]:
-    """Encode tokens and remove special char added by ConveRT."""
+    @staticmethod
+    def _clean_tokens(tokens: List[bytes]) -> List[Text]:
+        """Encode tokens and remove special char added by ConveRT."""
 
-    tokens = [string.decode("utf-8").replace("_", "") for string in tokens]
-    return [string for string in tokens if string]
+        tokens = [string.decode("utf-8").replace("_", "") for string in tokens]
+        return [string for string in tokens if string]
