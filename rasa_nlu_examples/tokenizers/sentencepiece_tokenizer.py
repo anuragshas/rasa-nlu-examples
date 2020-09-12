@@ -24,8 +24,7 @@ class SentencePieceTokenizer(Tokenizer):
         """Construct a new tokenizer using the SentencePiece framework."""
 
         super().__init__(component_config)
-
-        self.case_sensitive = self.component_config["case_sensitive"]
+        
         model_file = self.component_config["model_file"]
         if model_file:
             if not os.path.exists(model_file):
