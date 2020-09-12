@@ -3,10 +3,10 @@ from typing import Any, Dict, List, Text
 
 import sentencepiece as spm
 
-from rasa.nlu.constants import NUMBER_OF_SUB_TOKENS
 from rasa.nlu.tokenizers.tokenizer import Token, Tokenizer
 from rasa.nlu.tokenizers.whitespace_tokenizer import WhitespaceTokenizer
 from rasa.nlu.training_data import Message
+import rasa.utils.train_utils as train_utils
 
 
 class SentencePieceTokenizer(Tokenizer):
@@ -53,15 +53,16 @@ class SentencePieceTokenizer(Tokenizer):
         tokens_out = []
 
         for token in tokens_in:
+            token_start, token_end, token_text = token.start, token.end, token.te
             # use ConveRT model to tokenize the text
-            split_token_strings = self._tokenize(token.text)
+            split_token_strings = self._tokenize(token_text)
 
             # clean tokens (remove special chars and empty tokens)
             split_token_strings = self._clean_tokens(split_token_strings)
 
-            token.set(NUMBER_OF_SUB_TOKENS, len(split_token_strings))
-
-            tokens_out.append(token)
+            tokens_out.append(train_utils.align_tokens(
+                split_token_strings, token_end, token_start
+                ))
 
         return tokens_out
 
